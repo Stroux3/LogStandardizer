@@ -31,7 +31,7 @@ public class Format2ParserTests
     {
         var lines = new[]
         {
-            "просто текст без разделителей"
+            "Просто текст без разделителей"
         };
 
         var entry = _parser.TryParse(lines);
