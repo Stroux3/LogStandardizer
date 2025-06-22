@@ -21,7 +21,6 @@ public class LogProcessor
         {
             if (string.IsNullOrWhiteSpace(line))
             {
-                // Пустая строка - признак конца записи для формата 1
                 if (buffer.Count > 0)
                 {
                     ProcessBuffer(buffer, outputLines, problemLines);
@@ -31,7 +30,6 @@ public class LogProcessor
             else
             {
                 buffer.Add(line);
-                // Для формата 2 (однострочный) запись сразу обработаем
                 if (IsFormat2Line(line))
                 {
                     ProcessBuffer(buffer, outputLines, problemLines);
@@ -39,6 +37,14 @@ public class LogProcessor
                 }
             }
         }
+
+        // После окончания чтения файла, если остались данные в буфере — обработать их
+        if (buffer.Count > 0)
+        {
+            ProcessBuffer(buffer, outputLines, problemLines);
+            buffer.Clear();
+        }
+
 
         // Обработать остаток буфера (если файл не заканчивается пустой строкой)
         if (buffer.Count > 0)
